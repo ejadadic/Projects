@@ -6,3 +6,17 @@ Set-PSDebug -Off
 
     Write-Output('Installing Cert')
     Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root -FilePath "C:\temp\securly_ca_2034.crt"
+
+
+##Delete by Thumbprint
+$newCert = Get-ChildItem Cert:\LocalMachine\Root | Where-Object {$_.Thumbprint -match 'test'} 
+$oldCert = Get-ChildItem Cert:\LocalMachine\Root | Where-Object {$_.Thumbprint -match 'test2'} |
+
+if ($newCert.count -match 1 -and $oldCert.count -match 1)
+{
+  Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root -FilePath "C:\temp\securly_ca_2034.crt"
+}
+else 
+{
+    Remove-Item
+}
