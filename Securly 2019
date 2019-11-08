@@ -1,0 +1,8 @@
+Set-PSDebug -Off
+    
+    #Find the old certificate by the Thubprint
+    Get-Item Cert:\LocalMachine\Root\752C430FC35E26BC0A03CA6FF29BDF282FC7ED9E | Remove-Item
+
+
+    Write-Output('Installing Cert')
+    Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root -FilePath "C:\temp\securly_ca_2034.crt"
